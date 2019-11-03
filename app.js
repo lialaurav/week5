@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const mongoose = require('mongoose');
 
 var board = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
 var turn = 0;
 
+// Set views
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -13,11 +13,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Define default view
 app.get('/', (req, res) =>  {
   res.render('index', {board});
   console.log('We got a request!');
 });
 
+// Functions for checking winner
 function checkWinning(char, a, b, c, d, e) {
   if (board[a] == char && board[b] == char && board[c] == char && board[d] == char && board[e] == char) {
     return true;
@@ -54,7 +56,7 @@ function checkAll(char) {
   }
 };
 
-
+// Define what happens when player clicks the board
 app.get('/clicks/:id', (req, res) => {
   var spot = req.params.id;
   if (board[spot] != '') {
@@ -77,9 +79,16 @@ app.get('/clicks/:id', (req, res) => {
   }
 });
 
+// Define what happens when player clicks the restart-button
 app.get('/restart/', (req, res) => {
   for (var i = 0; i < 25; i++) {
     board[i] = '';
   } turn = 0;
   res.redirect('/');
+});
+
+// Set the port
+app.set('port', (process.env.PORT || 3000));
+app.listen(app.get('port'), function() {
+    console.log("App is running at localhost:" + app.get('port'))
 });

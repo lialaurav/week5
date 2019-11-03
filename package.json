@@ -1,0 +1,18 @@
+{
+  "scripts": {"start": "./node_modules/parcel-bundler/bin/cli.js index.html --port 8080","build": "parcel build index.html"},
+  "name": "week5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^2.0.4",
+    "path": "^0.12.7"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

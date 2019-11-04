@@ -1,6 +1,11 @@
+// Dependencies
 const express = require('express');
-const app = express();
+const http = require('http');
 const path = require('path');
+const mongoose = require('mongoose');
+
+// Create the app
+const app = express();
 
 var board = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
 var turn = 0;
@@ -87,8 +92,14 @@ app.get('/restart/', (req, res) => {
   res.redirect('/');
 });
 
-// Set the port
-app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'), function() {
-    console.log("App is running at localhost:" + app.get('port'))
+// Set the port and server
+var port = process.env.PORT || 3000;
+app.set('port', port);
+var server = http.createServer(app);
+server.listen(port, function() {
+  console.log('App is running at localhost:' + app.get('port'))
 });
+
+/*app.listen(app.get('port'), function() {
+    console.log("App is running at localhost:" + app.get('port'))
+});*/
